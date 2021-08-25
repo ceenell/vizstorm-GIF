@@ -111,6 +111,41 @@ prep_spark_funs_data <- function(stage_data, site_data, timestep_ind, spark_conf
       shapes[[site]] <- c(shapes[[site]], list(list()))
       j <- j + 1
     }
+
+
+    coord_space <- par()$usr
+    bin_w_perc <- 0.05 # percentage of X domain
+    bin_h_perc <- 0.02 # *also* percentage of X domain
+    bin_w <- bin_w_perc * diff(coord_space[c(1,2)])
+    bin_h <- bin_h_perc * diff(coord_space[c(1,2)])
+    if (x_pos == 'left'){
+      txt_pos = 4
+      x_edge <- coord_space[1]
+      shift_dir <- 1
+    } else if (x_pos == 'right'){
+      txt_pos = 2
+      x_edge <- coord_space[2]
+      shift_dir <- -1
+    }
+    ybottom <- coord_space[3]
+    dot_x <- x_edge+bin_w/2*shift_dir
+    dot_txt_x <- x_edge+bin_w*0.7*shift_dir
+    seg_x <- x_edge+bin_w/3*shift_dir
+    center_to_txt_y <- strheight("A")/3 # height of character divided by three seems to do the trick
+
+    # plot gage points legend
+
+    gage_caveat_y <- ybottom+5*bin_h*1.02
+    text(x_edge, gage_caveat_y, labels = 'Selected USGS stream gages', pos = txt_pos,
+         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
+    normal_y <- ybottom+4*bin_h
+    points(dot_x, normal_y+center_to_txt_y, pch = 21, bg = legend_styles$gage_norm_col, col = NA, cex = 2)
+    text(dot_txt_x, normal_y, labels = 'Below flood stage', pos = txt_pos,
+         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
+    flood_y <- ybottom+3*bin_h
+    points(dot_x, flood_y+center_to_txt_y, pch = 21, bg = legend_styles$gage_norm_col, col = legend_styles$gage_flood_col, lwd = 4, cex = 2)
+    text(dot_txt_x, flood_y, labels = 'Above flood stage', pos = txt_pos,
+         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
   }
 
   return(list(

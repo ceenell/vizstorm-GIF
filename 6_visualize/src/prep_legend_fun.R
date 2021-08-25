@@ -67,18 +67,18 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
     }
 
     # plot gage points legend
-    gage_caveat_y <- ybottom+5*bin_h*1.02
-    text(x_edge, gage_caveat_y, labels = 'Selected USGS stream gages', pos = txt_pos,
-         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
-    normal_y <- ybottom+4*bin_h
-    points(dot_x, normal_y+center_to_txt_y, pch = 21, bg = legend_styles$gage_norm_col, col = NA, cex = 2)
-    text(dot_txt_x, normal_y, labels = 'Below flood stage', pos = txt_pos,
-         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
-    flood_y <- ybottom+3*bin_h
-    points(dot_x, flood_y+center_to_txt_y, pch = 21, bg = legend_styles$gage_norm_col, col = legend_styles$gage_flood_col, lwd = 4, cex = 2)
-    text(dot_txt_x, flood_y, labels = 'Above flood stage', pos = txt_pos,
-         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
-
+  # gage_caveat_y <- ybottom+5*bin_h*1.02
+  # text(x_edge, gage_caveat_y, labels = 'Selected USGS stream gages', pos = txt_pos,
+  #      cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
+  # normal_y <- ybottom+4*bin_h
+  # points(dot_x, normal_y+center_to_txt_y, pch = 21, bg = legend_styles$gage_norm_col, col = NA, cex = 2)
+  # text(dot_txt_x, normal_y, labels = 'Below flood stage', pos = txt_pos,
+  #      cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
+  # flood_y <- ybottom+3*bin_h
+  # points(dot_x, flood_y+center_to_txt_y, pch = 21, bg = legend_styles$gage_norm_col, col = legend_styles$gage_flood_col, lwd = 4, cex = 2)
+  # text(dot_txt_x, flood_y, labels = 'Above flood stage', pos = txt_pos,
+  #      cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
+#
     # plot storm legend
     hurricane_y <- ybottom+6*bin_h*1.05
     if(has_storm_track) {
