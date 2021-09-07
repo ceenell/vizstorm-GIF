@@ -41,7 +41,7 @@ prep_storm_line_fun <- function(storm_points_sf, DateTime, storm_line_cfg, times
              col=cols[i],
              type = 'l',
              lty="dotted",
-             lwd = 4)
+             lwd = 3)
       }
     }
   }

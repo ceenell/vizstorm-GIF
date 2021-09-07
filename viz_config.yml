@@ -4,13 +4,11 @@ storm_code: al092021 # find the right code at https://www.nhc.noaa.gov/gis/archi
 stn_event: 312 # Can find code by looking at REST URLs here: https://stn.wim.usgs.gov/STNDataPortal/#
 dates:
   start: '2021-08-27 22:00:00'
-  end: '2021-09-03 1400:00'
+  end: '2021-09-03 10:00:00'
 date_display_tz: "America/New_York" # UTC is assumed for all input and intermediate data; this is the TZ to display on the GIF
-frame_step: 2 # hours elapsed between GIF frames
+frame_step: 4 # hours elapsed between GIF frames
 
 # view, dimensions
-#bbox: [-96.5, 20, -70, 43] # cuba and NE included
-#bbox: [-96.5, 25, -70, 43] # no cuba
 bbox: [-90, 25, -64, 43] # SE
 projection: "+proj=lcc +lat_1=30.7 +lat_2=29.3 +lat_0=28.5 +lon_0=-91.33333333333333 +x_0=999999.9999898402 +y_0=0 +ellps=GRS80 +datum=NAD83 +to_meter=0.3048006096012192 +no_defs"
 height: 675
@@ -22,18 +20,19 @@ width: 1200
 #precip_cols: ["#D7F4CF", "#BCE9C5",  "#6DCEB4", "#18BDB0", "#00AAAE", "#0095AF", "#007EB3", "#005D9E"] #YlGnBu
 #precip_cols: ["#D2E7ED", "#B7D5E4", "#A0BDD8", "#8DA3CA", "#8085B8", "#7665A4", "#6F418D", "#6B0077"] # Purple-Blue
 #precip_cols: ["#E2F4DD", "#BBE9CC", "#7ED6C1", "#00BCBC", "#009ABB", "#006BAA", "#2F327D"] # GnBu
-#precip_cols: ["#F5F2D8", "#CFEABE", "#94DCB7", "#51C6BD", "#2CA8C2", "#5880BD", "#7F4CA5", "#80146E"] # Purple-Yellow - this one is decent but the light end looks sort of emdiocre
-#precip_cols: ["#E3F2D2", "#C1EBC7", "#92DBC1", "#5AC1BB", "#1C9CB0", "#026E9D", "#2D3184"] # Blue-Yellow
-#precip_cols: ["#D2EEEA", "#AFDEDC", "#91CACD", "#75B4BE", "#5A9DAE", "#40869E", "#346E8B", "#2A5676"] #Teal
+#precip_cols: ["#CFEABE", "#94DCB7", "#51C6BD", "#2CA8C2", "#5880BD", "#7F4CA5", "#80146E"] # Purple-Yellow - this one is decent but the light end looks sort of emdiocre
+#precip_cols: ["#E3F2D2", "#C1EBC7", "#92DBC1", "#5AC1BB", "#1C9CB0", "#026E9D"] #, #"#2D3184"] # Blue-Yellow
+#precip_cols: ["#D2EEEA", "#AFDEDC", "#91CACD", "#5A9DAE", "#40869E", "#2A5676"] #Teal
 #precip_cols: ["#F0E4F2", "#B1B8DF", "#76A6D0", "#0096B8", "#00828B", "#006459", "#004533"] #PuBuGn
-precip_cols: ["#E9DDEF", "#C0BFE3", "#76A6D0", "#0091AD", "#006F69", "#004533"] # short PuBnGn
+#precip_cols: ["#E9DDEF", "#C0BFE3", "#76A6D0", "#0091AD", "#006F69", "#004533"] # short PuBnGn
 #precip_cols: ["#DAEBF5", "#B8D5E9", "#93BADB", "#6C9CCC", "#417CBD", "#31599B", "#273871", "#273871"] #Blues
 #precip_cols: ["#E5E8F3", "#CBD2E7", "#ADBADA", "#89A2CE", "#5C8AC2", "#1173B2", "#055987", "#0E3F5C"] #PuBu
-#precip_cols: ["#FAFBF399", "#F0F8E3CC", "#D4E9CAE6", "#BBE0CE", "#B7DAD0", "#B0CCD7", "#A9B8D7", "#A297C2", "#8F6F9E", "#684A77", "#41234D"] #wapo
-precip_breaks: [1, 2, 4, 8, 12, 16]
+precip_cols: ["#D4E9CAE6", "#BBE0CE","#B0CCD7", "#A9B8D7", "#A297C2", "#8F6F9E", "#684A77"] #wapo
+#precip_cols: ["#93EAAE", "#65DEAD", "#40CEAF", "#1BBCAE", "#00A9AA", "#0094A2", "#177F97"] # TealGrn
+precip_breaks: [1, 2, 4, 6, 8, 10, 12]
 precip_bin: 3 # inches per bin
-gage_flood_col: "#175676"
-gage_line_col: "#4BA3C3" #"#3c829c"
+gage_flood_col: "darkslateblue" #"#175676"
+gage_line_col: "darkslateblue" #"#3c829c"
 gage_norm_col: "#4BA3C3"
 
 gage_out_col: "white"
@@ -46,13 +45,13 @@ storm_line_col: "black"
 storm_lwd: 2
 major_river_col: "#1874cd"
 gage_river_col: "#5d9ddc"
-lake_col: "#F2F2F2"
+lake_col: "#EBF6F8" #"#F2F2F2"
 marsh_col: NA
-ocean_col: "#F2F2F2" ##EBF6F8
+ocean_col: "#EBF6F8" #"#F2F2F2" ##EBF6F8
 legend_text:
   cex: 1.5
   col: "#161616"
-  family: "Abel"
+  family: "sans"
 
 timeline_style:
   pt_cex: 0.5
@@ -66,9 +65,9 @@ timeline_style:
   font_col: "gray30"
 
 storm_line:
-  dark_col: "black"
-  light_col: "grey40"
-  tail_length: 40 # n storm point locations behind the current date time to show the tail
+  dark_col: "grey30"
+  light_col: "grey60"
+  tail_length: 30 # n storm point locations behind the current date time to show the tail
   fade_i: 4 # n storm points between the next colored storm points (smaller fade_i = smoother fade)
 
 # introductory animation
@@ -96,13 +95,13 @@ component_placement:
     xleft: 0.7 # as percentage of figure width
     xright: 0.95 # don't use 1.0 - it causes an error (invalid value specified for graphics parameter "fig")
     ybottom: 0.075 # as percentage of figure height
-    ytop: 0.82 # top of the first sparkline. spark title goes above. don't use 1.0 - it causes an error (invalid value specified for graphics parameter "fig")
+    ytop: 0.9 # top of the first sparkline. spark title goes above. don't use 1.0 - it causes an error (invalid value specified for graphics parameter "fig")
     ytimeline: 0.06 # y location of timeline; this will use xright and xleft from sparks
     ytimeline_text: 0.025 # y location of timeline dates (0.035 below line has worked well)
   outro:
     # outro text & legend roughly, but not exactly, fit where the sparklines were
-    xleft: 0.55
-    xright: 0.99
+    xleft: 0.65
+    xright: 0.95
     ytop_ltn: 0.6 # top y coordinate of the text and legend for the long-term network
     ytop_stn: 0.85 # top y coordinate of the text and legend for the short-term network
     ytop_more: 0.4 # top y coordinate of the text and URL for where to learn more

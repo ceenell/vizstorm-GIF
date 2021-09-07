@@ -1,5 +1,5 @@
 
-prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_points_sf, DateTime=NA, x_pos = c('left', 'right'), y_pos = c('bottom','top'), legend_text_cfg){
+prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_points_sf, DateTime=NA, x_pos = c('left', 'right'), y_pos = c('bottom','top'), legend_text_cfg, intro = FALSE){
 
   x_pos <- match.arg(x_pos)
   y_pos <- match.arg(y_pos)
@@ -40,7 +40,7 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
       x_edge <- coord_space[2]
       shift_dir <- -1
     }
-    ybottom <- coord_space[4]*.7
+    ybottom <- coord_space[4]*.8
     dot_x <- x_edge+bin_w/2*shift_dir
     dot_txt_x <- x_edge+bin_w*0.7*shift_dir
     seg_x <- x_edge+bin_w/4*shift_dir
@@ -49,9 +49,9 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
     # plot precip bins and precip label
     precip_txt_y <- ybottom+2*bin_h*0.4
     text(x_edge, precip_txt_y, labels = 'Total rainfall (in)', pos = txt_pos,
-         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family, font = 3)
+         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
     text(x_edge, precip_txt_y-bin_h*0.5, labels = 'Data: NOAA', pos = txt_pos,
-         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family, font = 3)
+         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
     if (x_pos == 'left'){
       bin_j <- 1:nrow(precip_bins)
       xright <- x_edge+bin_w*1.5
@@ -79,22 +79,25 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
     box_x_left = xright-bin_w
     box_x_right = coord_space[2]*0.35
 
-    rect(xleft = box_x_left, xright = box_x_right, ybottom = box_y_low, ytop = box_y_up,
-         col = alpha("white", 0.8), border = NA)
-    text(box_x_left, coord_space[4]*0.875, labels = legend_text_cfg$storm_name, cex = legend_text_cfg$cex*2,
-         col = legend_text_cfg$col)
+   #rect(xleft = box_x_left, xright = box_x_right, ybottom = box_y_low, ytop = box_y_up,
+   #     col = alpha("white", 0.8), border = NA)
+    #text(box_x_left, coord_space[4]*0.875, labels = legend_text_cfg$storm_name, cex = legend_text_cfg$cex*2,
+    #     col = legend_text_cfg$col)
 
     gage_caveat_y <- gage_bottom+5*bin_h
-    text(x_edge, gage_caveat_y, labels = 'Select USGS streamgages', pos = txt_pos,
-         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
+
+   #text(x_edge, gage_caveat_y, labels = 'Select USGS streamgages', pos = txt_pos,
+   #     cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
     normal_y <- gage_bottom+4*bin_h
-    points(dot_x, gage_caveat_y-(0.5*bin_h), pch = 21, bg = legend_styles$gage_norm_col, col = NA, cex = 2, lwd=2)
-    text(dot_txt_x, gage_caveat_y-(0.5*bin_h), labels = 'streamgage', pos = txt_pos,
+    if(intro == FALSE){
+    points(dot_x+35*bin_w, gage_caveat_y+(0.25*bin_h), pch = 21, bg = legend_styles$gage_norm_col, col = NA, cex = 2, lwd=2)
+    text(dot_txt_x+35*bin_w, gage_caveat_y+(0.25*bin_h), labels = 'streamgage', pos = txt_pos,
          cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
     #flood_y <- ybottom+3*bin_h
-    points(dot_x+bin_w*5, gage_caveat_y-(0.5*bin_h), pch = 21, bg = legend_styles$gage_norm_col, col = legend_styles$gage_flood_col, lwd = 4, cex = 2)
-    text(dot_txt_x+bin_w*5, gage_caveat_y-(0.5*bin_h), labels = 'flooding', pos = txt_pos,
+    points(dot_x+bin_w*5+35.5*bin_w, gage_caveat_y+(0.25*bin_h), pch = 21, bg = legend_styles$gage_norm_col, col = legend_styles$gage_flood_col, lwd = 4, cex = 2)
+    text(dot_txt_x+bin_w*5+35.5*bin_w, gage_caveat_y+(0.25*bin_h), labels = 'above flood stage', pos = txt_pos,
          cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
+    }
 
     # plot storm legend
     hurricane_y <- gage_bottom+5.75*bin_h
@@ -105,10 +108,15 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
              cex=legend_text_cfg$cex*2, col=legend_text_cfg$col, family=legend_text_cfg$family, font = 2)
         segments(xright-bin_w, hurricane_y+center_to_txt_y, dot_txt_x+(bin_w), lty = "dotted",
                  col = legend_styles$storm_line_col, lwd = 3)
+      } else if(hurricane_cat == "Tropical Storm %s") {
+        text(dot_txt_x, hurricane_y, labels = sprintf(hurricane_cat, legend_styles$storm_name), pos = txt_pos,
+             cex=legend_text_cfg$cex*2, col=legend_text_cfg$col, family=legend_text_cfg$family, font = 2)
+        points(dot_x+(bin_w*0.5), hurricane_y+center_to_txt_y, pch = 21, bg = hurricane_col, col = NA, cex = 4)
+
       } else {
         text(dot_txt_x+(bin_w), hurricane_y, labels = sprintf(hurricane_cat, legend_styles$storm_name), pos = txt_pos,
              cex=legend_text_cfg$cex*2, col=legend_text_cfg$col, family=legend_text_cfg$family, font = 2)
-        points(dot_x, hurricane_y+center_to_txt_y, pch = 21, bg = hurricane_col, col = NA, cex = 4)
+        points(dot_x+(bin_w*0.5), hurricane_y+center_to_txt_y, pch = 21, bg = hurricane_col, col = NA, cex = 4)
       }
     }
 

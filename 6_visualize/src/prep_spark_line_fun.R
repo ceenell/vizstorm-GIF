@@ -147,8 +147,8 @@ prep_spark_line_fun <- function(stage_data, site_data, timestep_ind, spark_confi
     # Plot the sparklines title
     title_x <- coord_space[1] + mean(x_coords) * diff(coord_space[1:2])
     title_y <- coord_space[3] + mean(c(max(y_coords$upper), 1)) * diff(coord_space[3:4])
-    text(x=title_x, y=title_y, labels="Water level at selected USGS gages", adj=c(0.5, 0.5),
-         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
+    text(x=title_x, y=title_y, labels="Water level at select USGS gages", #adj=c(0.5, 0.5),
+         cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family, font = 2)
 
     for(site in names(shapes)) {
 
@@ -176,10 +176,10 @@ prep_spark_line_fun <- function(stage_data, site_data, timestep_ind, spark_confi
           y = stage_to_y(stage_normalized, y_user))
 
         # Add stage shapes to plot
-        text(full_poly$x[1]-strwidth("5555"), full_poly$y[1], labels=site)
+        #text(full_poly$x[1]-strwidth("5555"), full_poly$y[1], labels=site)
         polygon(full_poly$x, full_poly$y, col = gage_col_config$gage_norm_col, border=NA)
         polygon(flood_poly$x, flood_poly$y, col = gage_col_config$gage_flood_col, border=NA)
-        points(hydro_line$x, hydro_line$y, col = gage_col_config$gage_line_col, type='l', lwd=2)
+        points(hydro_line$x, hydro_line$y, col = gage_col_config$gage_line_col, type='l', lwd=1.5)
 
         # add the x and/or o
         if(num_chunks > 1) {
