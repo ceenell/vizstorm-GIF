@@ -20,7 +20,7 @@ prep_storm_line_fun <- function(storm_points_sf, DateTime, storm_line_cfg, times
 
     # Keep a faint line to show where the hurricane has been
     tail_lengths <- c(nrow(before_this_dot), tail_lengths)
-    cols <- c("grey80", cols)
+    cols <- c("grey60", cols)
 
     function(){
       for(i in 1:length(tail_lengths)) {
@@ -34,7 +34,7 @@ prep_storm_line_fun <- function(storm_points_sf, DateTime, storm_line_cfg, times
         if(n_end < 1) { n_end <- nrow(before_this_dot) }
 
         plot(st_geometry(before_this_dot[n_start:n_end,]), add=TRUE,
-             col=cols[i], type = 'l', lty="dotted", lwd = 2)
+             col=cols[i], type = 'l', lty="dotted", lwd = 3)
       }
     }
   }

@@ -3,7 +3,6 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
 
   x_pos <- match.arg(x_pos)
   y_pos <- match.arg(y_pos)
-  #orient <- match.arg(orientation)
   orient <- "vertical"
 
   if(is.na(DateTime)) {
@@ -32,7 +31,7 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
     coord_space <- par()$usr
 
     #if (orient == "horizontal"){
-      bin_w_perc <- 0.05 # percentage of X domain
+      bin_w_perc <- 0.075 # percentage of X domain
       bin_h_perc <- 0.02 # *also* percentage of X domain
     #} else if (orient == "vertical") {
      # precip_perc <- 0.02 # percentage of X domain
@@ -49,10 +48,10 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
       shift_dir <- 1
     } else if (x_pos == 'right'){
       txt_pos = 2
-      x_edge <- coord_space[2]
+      x_edge <- coord_space[2]*0.975
       shift_dir <- -1
     }
-    ybottom <- coord_space[3]
+    ybottom <- coord_space[3]*0.95
     dot_x <- x_edge+bin_w/2*shift_dir
     dot_txt_x <- x_edge+bin_w*0.7*shift_dir
     seg_x <- x_edge+bin_w/3*shift_dir
@@ -72,16 +71,20 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
     for (j in bin_j){
       col <- as.character(precip_bins$col[j])
       #text_col <- ifelse(any(col2rgb(col) < 130), 'white','black')
-      rect(xleft = xright-bin_w, ybottom = ybottom, xright = xright, ytop = ybottom+bin_h, col = col, border = NA)
-      lines(x=c(xright-bin_w, xright), y = c(y_bottom, ybottom+bin_h))
-      text_char <- as.character(precip_bins$break_factor[j]) %>% gsub(pattern = ',', replacement = '-') %>% gsub(pattern = '-Inf', replacement = '+') %>% gsub(pattern = "\\(|\\]", replacement = '')
-      text(xright, ybottom+bin_h/2, text_char, col = text_col, cex = 1.3)
+      rect(xleft = xright-bin_w, ybottom = ybottom+bin_h*0.4, xright = xright, ytop = ybottom+bin_h, col = col, border = NA)
+      lines(x=c(xright-bin_w, xright-bin_w), y = c(ybottom+bin_h*0.2, ybottom+bin_h))
+      text_char <- as.character(precip_bins$left_break[j])
+      text(xright-bin_w, ybottom-bin_h*0.2, text_char, col = "black", cex = 1.3)
+      if (j == length(bin_j)){
+        lines(x=c(xright, xright), y = c(ybottom+bin_h*0.2, ybottom+bin_h))
+        text(xright, ybottom-bin_h*0.2, "+", col = "black", cex = 1.3)
+      }
       xright <- xright+bin_w*shift_dir
     }
 
     # plot gage points legend
     gage_caveat_y <- ybottom+5*bin_h*1.02
-    text(x_edge, gage_caveat_y, labels = 'Select USGS stream gages', pos = txt_pos,
+    text(x_edge, gage_caveat_y, labels = 'Select USGS streamgages', pos = txt_pos,
          cex=legend_text_cfg$cex, col=legend_text_cfg$col, family=legend_text_cfg$family)
     normal_y <- ybottom+4*bin_h
     points(dot_x, normal_y+center_to_txt_y, pch = 21, bg = legend_styles$gage_norm_col, col = NA, cex = 2)

@@ -10,7 +10,7 @@ prep_precip_fun <- function(precip_rasters, precip_bins, timestep){
   colors <- c(paste0(substr(colors[1], 1, 7), "00"), alpha(colors, 0.9))
 
   one_precip_raster <- precip_rasters[[timestep]]
-
+  browser()
   # clean up the environment to keep the closure small
   rm(precip_rasters, precip_bins, timestep)
 
