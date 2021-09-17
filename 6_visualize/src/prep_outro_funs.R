@@ -106,11 +106,11 @@ prep_outro_readmore_fun <- function(outro_placement, legend_text_cfg, opacity=1)
     y_text <- user_coords[3] + 0.11 * diff(user_coords[3:4])
 
     # plot text and legend
-    text(x=x_title, y=y_title, labels="STAY SAFE DURING FLOODS", adj=c(0, 1),
-         cex=2.2, col=legend_text_cfg$col, family = 'Oswald')
-    text_chars <- "Learn more about USGS response to Florence at www.usgs.gov/florence"
-    text(x=x_text, y=y_text, labels=text_chars, adj=c(0, 1),
-         cex=1.5, col=legend_text_cfg$col, family = 'abel')
+    #text(x=x_title, y=y_title, labels="STAY SAFE DURING FLOODS", adj=c(0, 1),
+    #     cex=2.2, col=legend_text_cfg$col, family = 'Oswald')
+    #text_chars <- "Learn more about USGS response to Nicholas at www.usgs.gov/nicholas"
+    #text(x=x_text, y=y_text, labels=text_chars, adj=c(0, 1),
+    #     cex=1.5, col=legend_text_cfg$col, family = 'abel')
   }
   return(plot_fun)
 }

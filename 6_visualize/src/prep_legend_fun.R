@@ -3,6 +3,8 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
 
   x_pos <- match.arg(x_pos)
   y_pos <- match.arg(y_pos)
+  #orient <- match.arg(orientation)
+  orient <- "vertical"
 
   if(is.na(DateTime)) {
     timesteps <- readRDS(sc_retrieve(timesteps_ind), remake_file = getOption("scipiper.remake_file"))
@@ -23,14 +25,24 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
 
   rm(storm_points_sf)
 
+
   plot_fun <- function(){
 
     # compute position info shared across multiple legend elements
     coord_space <- par()$usr
-    bin_w_perc <- 0.05 # percentage of X domain
-    bin_h_perc <- 0.02 # *also* percentage of X domain
+
+    #if (orient == "horizontal"){
+      bin_w_perc <- 0.05 # percentage of X domain
+      bin_h_perc <- 0.02 # *also* percentage of X domain
+    #} else if (orient == "vertical") {
+     # precip_perc <- 0.02 # percentage of X domain
+     # precip_perc <- 0.05 # *also* percentage of X domain
+    #}
     bin_w <- bin_w_perc * diff(coord_space[c(1,2)])
     bin_h <- bin_h_perc * diff(coord_space[c(1,2)])
+    #precip_w <- bin_w_perc * diff(coord_space[c(1,2)])
+    #precip_h <- bin_h_perc * diff(coord_space[c(1,2)])
+
     if (x_pos == 'left'){
       txt_pos = 4
       x_edge <- coord_space[1]
@@ -59,10 +71,11 @@ prep_legend_fun <- function(precip_bins, legend_styles, timesteps_ind, storm_poi
     }
     for (j in bin_j){
       col <- as.character(precip_bins$col[j])
-      text_col <- ifelse(any(col2rgb(col) < 130), 'white','black')
+      #text_col <- ifelse(any(col2rgb(col) < 130), 'white','black')
       rect(xleft = xright-bin_w, ybottom = ybottom, xright = xright, ytop = ybottom+bin_h, col = col, border = NA)
+      lines(x=c(xright-bin_w, xright), y = c(y_bottom, ybottom+bin_h))
       text_char <- as.character(precip_bins$break_factor[j]) %>% gsub(pattern = ',', replacement = '-') %>% gsub(pattern = '-Inf', replacement = '+') %>% gsub(pattern = "\\(|\\]", replacement = '')
-      text(xright-bin_w/2, ybottom+bin_h/2, text_char, col = text_col, cex = 1.3)
+      text(xright, ybottom+bin_h/2, text_char, col = text_col, cex = 1.3)
       xright <- xright+bin_w*shift_dir
     }
 
