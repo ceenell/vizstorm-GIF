@@ -1,0 +1,209 @@
+storm_name: "Nicholas"
+# `storm_code` and `stn_event` can be commented out or deleted if there is not a storm track
+storm_code: al142021 # find the right code at https://www.nhc.noaa.gov/gis/archive_besttrack.php?year=2021
+stn_event: 312 # Can find code by looking at REST URLs here: https://stn.wim.usgs.gov/STNDataPortal/#
+dates:
+  start: '2021-09-13 00:00:00'
+  end: '2021-09-17 10:00:00'
+date_display_tz: "America/New_York" # UTC is assumed for all input and intermediate data; this is the TZ to display on the GIF
+frame_step: 2 # hours elapsed between GIF frames
+
+# view, dimensions
+bbox: [-105, 22, -78, 34] # TX to FL
+projection: "+proj=lcc +lat_1=30.7 +lat_2=29.3 +lat_0=28.5 +lon_0=-91.33333333333333 +x_0=999999.9999898402 +y_0=0 +ellps=GRS80 +datum=NAD83 +to_meter=0.3048006096012192 +no_defs"
+height: 900
+width: 1600
+
+# styling
+#precip_cols: ["#E8E6F9", "#D4D1F5", "#C1BCF1", "#AEA8ED", "#8C94E2", "#5C7FD0", "#396CB4", "#285C94", "#264679", "#282F62", "#2B194C"] # devon
+#precip_cols: ["#E0F7E1", "#87D4BC", "#48C2B4",  "#009AB4", "#007FA8", "#256494", "#404B7B", "#423460"] #Mako
+#precip_cols: ["#D7F4CF", "#BCE9C5",  "#6DCEB4", "#18BDB0", "#00AAAE", "#0095AF", "#007EB3", "#005D9E"] #YlGnBu
+#precip_cols: ["#D2E7ED", "#B7D5E4", "#A0BDD8", "#8DA3CA", "#8085B8", "#7665A4", "#6F418D", "#6B0077"] # Purple-Blue
+#precip_cols: ["#E2F4DD", "#BBE9CC", "#7ED6C1", "#00BCBC", "#009ABB", "#006BAA", "#2F327D"] # GnBu
+#precip_cols: ["#CFEABE", "#94DCB7", "#51C6BD", "#2CA8C2", "#5880BD", "#7F4CA5", "#80146E"] # Purple-Yellow - this one is decent but the light end looks sort of emdiocre
+#precip_cols: ["#E3F2D2", "#C1EBC7", "#92DBC1", "#5AC1BB", "#1C9CB0", "#026E9D"] #, #"#2D3184"] # Blue-Yellow
+precip_cols: ["#D2EEEA", "#AFDEDC", "#91CACD", "#5A9DAE", "#40869E", "#2A5676"] #Teal
+#precip_cols: ["#F0E4F2", "#B1B8DF", "#76A6D0", "#0096B8", "#00828B", "#006459", "#004533"] #PuBuGn
+#precip_cols: ["#E9DDEF", "#C0BFE3", "#76A6D0", "#0091AD", "#006F69", "#004533"] # short PuBnGn
+#precip_cols: ["#DAEBF5", "#B8D5E9", "#93BADB", "#6C9CCC", "#417CBD", "#31599B", "#273871", "#273871"] #Blues
+#precip_cols: ["#E5E8F3", "#CBD2E7", "#ADBADA", "#89A2CE", "#5C8AC2", "#1173B2", "#055987", "#0E3F5C"] #PuBu
+#precip_cols: ["#D4E9CAE6", "#BBE0CE","#B0CCD7", "#A9B8D7", "#A297C2", "#8F6F9E", "#684A77"] #wapo
+#precip_cols: ["#93EAAE", "#65DEAD", "#40CEAF", "#1BBCAE", "#00A9AA", "#0094A2", "#177F97"] # TealGrn
+precip_breaks: [1, 2, 4, 8, 12, 20]
+precip_bin: 3 # inches per bin
+gage_flood_col: "darkslateblue" #"#175676"
+gage_line_col: "darkslateblue" #"#3c829c"
+gage_norm_col: "#4BA3C3"
+
+gage_out_col: "white"
+gage_ltn_col: "#97cbdb" # #aad4e2 # for non-focal stationary gages (ltn = long-term network), to show in outro
+gage_stn_col: "#ff7f50" # for non-focal short-term-network (rapid deployment) gages, to show in outro
+hurricane_col: "orange"
+hurricane_cols: [NA, "#71c633", "#FBC195", "#FB8147", "#EF5F2C", "#C63526", "#6E1B14"]
+hurricane_col_names: ["Tropical Storm %s", "Hurricane %s (Cat1)", "Hurricane %s (Cat2)", "Hurricane %s (Cat3)", "Hurricane %s (Cat4)", "Hurricane %s (Cat5)"] # If these change, legend layout may break
+storm_line_col: "black"
+storm_lwd: 2
+major_river_col: "#1874cd"
+gage_river_col: "#5d9ddc"
+lake_col: "#F5F5F5"
+marsh_col: NA
+ocean_col: "#F5F5F5" ##EBF6F8
+legend_text:
+  cex: 1.5
+  col: "#161616"
+  family: "sans"
+
+timeline_style:
+  pt_cex: 0.5
+  pt_col: "gray30"
+  pt_pch: "|"
+  line_cex: 1
+  line_lwd: 0.7
+  line_lty: 3
+  line_col: "gray45"
+  font_cex: 1.5
+  font_col: "gray30"
+
+storm_line:
+  dark_col: "grey30"
+  light_col: "grey60"
+  tail_length: 30 # n storm point locations behind the current date time to show the tail
+  fade_i: 4 # n storm points between the next colored storm points (smaller fade_i = smoother fade)
+
+# introductory animation
+intro:
+  t_last_start: 5 # last frame in the intro animation when a site should leave its lat/lon (they're staggered)
+  n_frames: 20 # number of frames in the intro animation linking gages to sparklines
+  elbow_radius: 50000 # radius of the curvature at the elbow of the dot travel path, in 10000ths of degrees
+  point_background: "#175676"
+  frame_delay_cs: 8 # delay between intro frames. cs = centiseconds = hundredths of a second
+
+frame_delay_cs: 14 # delay between frames of the gif animation DURING storm frames. cs = centiseconds = hundredths of a second
+
+# Image placement for function calls of USGS watermark, legend, datetime, etc..
+#  These are fraction of the coordinate space, where 0,0 is bottom left of figure (some stuff is right justified though - legend)
+component_placement:
+  watermark_x_pos: "right"
+  watermark_y_pos: "top"
+  datetime:
+    # above watermark for now
+    x1: 0.05
+    y1: 0.85
+  legend_x_pos: "right"
+  legend_y_pos: "top"
+  sparks:
+    xleft: 0.05 # as percentage of figure width
+    xright: 0.25 # don't use 1.0 - it causes an error (invalid value specified for graphics parameter "fig")
+    ybottom: 0.075 # as percentage of figure height
+    ytop: 0.9 # top of the first sparkline. spark title goes above. don't use 1.0 - it causes an error (invalid value specified for graphics parameter "fig")
+    ytimeline: 0.06 # y location of timeline; this will use xright and xleft from sparks
+    ytimeline_text: 0.025 # y location of timeline dates (0.035 below line has worked well)
+  outro:
+    # outro text & legend roughly, but not exactly, fit where the sparklines were
+    xleft: 0.65
+    xright: 0.95
+    ytop_ltn: 0.6 # top y coordinate of the text and legend for the long-term network
+    ytop_stn: 0.85 # top y coordinate of the text and legend for the short-term network
+    ytop_more: 0.4 # top y coordinate of the text and URL for where to learn more
+
+
+ocean_name_placement:
+  -
+    x1: 0.54
+    y1: 0.23
+    label: 'Gulf of Mexico'
+
+focus_geoms:
+  -
+    # U.S. counties
+    database: county
+  -
+    # U.S. states
+    database: state
+
+secondary_geoms:
+  -
+    # non-U.S. islands
+    database: "mapdata::world2Hires"
+    regions: "(?!USA)"
+    xlim: [275, 300]
+    ylim: [16, 30]
+  -
+    # Mexico
+    database: "mapdata::worldHires"
+    regions: "Mexico"
+
+cities:
+  # parameters for general coloring of the cities
+  dot:
+    bg: "gray40"
+    col: "gray40"
+    pch: 5
+    cex: 1
+  text:
+    col: "gray40"
+    font: 1
+    cex: 1.1
+    angle: 135 # angle in radians for position of label relative to dot. pos is computed from angle: 225-315=1, 315-45=4, 45-135=3, 135-225=2
+    dist: 0.01 # relative (fraction of window width) distance from dot to label
+  pop_min: 500000 # minimum population size of cities to be chosen by default; `custom` will make additions or modifications and `exclude` will make subtractions
+  custom:
+    # cities to add or modify relative to the maps::us.cities dataset. added cities can use lat/long from us.cities if they are present in us.cities, even if they don't meet the pop_min criterion
+    -
+      name: "New Orleans LA"
+      text_angle: 170
+    -
+      name: "Jackson MS"
+      text_angle: 170
+    -
+      name: "Atlanta GA"
+    -
+      name: "Miami FL"
+    -
+      name: "Birmingham AL"
+    -
+      name: "Mobile AL"
+    -
+      name: "Tallahassee FL"
+    -
+      name: "Orlando FL"
+    -
+      name: "Montgomery AL"
+
+
+  exclude:
+    - "Knoxville TN"
+    - "Memphis TN"
+    - "Oklahoma City OK"
+    - "Columbus OH"
+    - "Fort Worth TX"
+    - "Dallas TX"
+    - "Detroit MI"
+    - "Chicago IL"
+    - "WASHINGTON DC"
+    - "Indianapolis IN"
+    - "Milwaukee WI"
+    - "Denver CO"
+    - "El Paso TX"
+    - "Austin TX"
+    - "San Antonio TX"
+    - "Houston TX"
+
+# Only streamorders greater than this will be fetched.
+fetch_streamorder: 5
+
+# Only waterbodies greater than this area will be fetched.
+fetch_waterbody_areasqkm: 1000
+
+# Changes only affect river geom process step.
+# Coastal threshold controls the drainage area used to limit
+# flowlines that terminate at the ocean. Inland threshold
+# controls the drainage area used to limit tributary flowlines
+# that terminate into other flowlines.
+coastal_threshold_sqkm: 1000
+inland_threshold_sqkm: 40000
+simplification_tolerance_m: 1000
+
+# for linear interpolation of stage data: maximum number of hours under which
+# gaps in stage data will be interpolated
+stage_gap_threshold: 3

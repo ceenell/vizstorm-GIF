@@ -1,0 +1,15 @@
+version: 0.3.0
+name: 2_process/out/precip_rasters.rds.ind
+type: file
+hash: ef3c240b1fc11c7eb27e9cd9474a3def
+time: 2021-09-16 21:47:06 UTC
+depends:
+  2_process/out/precip_spatial.rds.ind: 944b9f4d3f1b9ecd4b17979336c2363a
+  2_process/out/precip_values.rds.ind: 6b28de6332fb086f84cbdbea6d768ce8
+  view_polygon: 67f3762cb22d64b2cfbe72e712eea22b
+  view_config: 8169392976febd0ab92f706b50cbf504
+fixed: b2933ef8f2cc67c1beee836159cf072a
+code:
+  functions:
+    process_precip_rasters: 03e3c1609b740b61bbd02c1656fc014f
+

@@ -33,7 +33,7 @@ prep_storm_line_fun <- function(storm_points_sf, DateTime, storm_line_cfg, times
         if(n_start < 1) { n_start <- 1 }
         if(n_end < 1) { n_end <- nrow(before_this_dot) }
 
-        plot(st_geometry(slice(before_this_dot, n_start:n_end)), add=TRUE,
+        plot(st_geometry(before_this_dot[n_start:n_end,]), add=TRUE,
              col=cols[i], type = 'l', lty="dotted", lwd = 2)
       }
     }

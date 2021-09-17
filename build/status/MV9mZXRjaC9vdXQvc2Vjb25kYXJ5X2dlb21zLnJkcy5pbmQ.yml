@@ -1,0 +1,13 @@
+version: 0.3.0
+name: 1_fetch/out/secondary_geoms.rds.ind
+type: file
+hash: 106d91dd2a5dae62e9837c820830cdb2
+time: 2021-09-16 00:21:11 UTC
+depends:
+  secondary_geoms_config: eff72b8732814d5800bdbcb2203b070c
+  view_polygon: 67f3762cb22d64b2cfbe72e712eea22b
+fixed: 1fde124b085e4a6d8ba026a069642677
+code:
+  functions:
+    fetch_geoms: 7b98163f4666e40d599580eca950f004
+
