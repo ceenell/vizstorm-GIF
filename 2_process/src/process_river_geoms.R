@@ -21,7 +21,7 @@ process_river_geoms <- function(ind_file,
 
   sf_major_rivers <- filter(sf_major_rivers,
                             levelpathi %in% c(outlets, inland)) %>%
-    group_by(levelpathi) %>%
+    group_by(levelpathi, streamorde) %>%
     summarise() %>%
     st_cast("MULTILINESTRING") %>%
     ungroup() %>%
