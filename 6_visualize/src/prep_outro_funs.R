@@ -2,7 +2,7 @@ prep_outro_rdgs_fun <- function(rdg_ind="1_fetch/out/rapid_dep_sites.rds.ind", g
   # project from lat/lon to plot coordinates. . this properly belongs in a 2_process step, but we're releasing tomorrow
   proj_str <- "+proj=lcc +lat_1=34.83333333333334 +lat_2=32.5 +lat_0=31.83333333333333 +lon_0=-81 +x_0=609600 +y_0=0 +ellps=GRS80 +units=m +no_defs "
 
-  rdgs <- readRDS(sc_retrieve(rdg_ind))
+  rdgs <- readRDS(sc_retrieve(rdg_ind, remake_file = getOption("scipiper.remake_file")))
 
   if(length(rdgs) ==  0) {
     plot_fun <- function(){ return() }
@@ -41,7 +41,7 @@ prep_outro_rdgs_fun <- function(rdg_ind="1_fetch/out/rapid_dep_sites.rds.ind", g
     # plot text and legend
     text(x=x_title, y=y_title, labels="RAPID RESPONSE TO FLOODS", adj=c(0, 1),
          cex=2.2, col=legend_text_cfg$col, family = 'Oswald')
-    text_chars <- "During floods, USGS rapidly deploys extra gages\n(orange dots   ) to help protect life and property."
+    text_chars <- "During floods, USGS rapidly deploys extra sensors\n(orange dots   ) to help protect life and property."
     text(x=x_text, y=y_text, labels=text_chars, adj=c(0, 1),
          cex=1.8, col=legend_text_cfg$col, family = 'abel')
     points(x=x_dot, y=y_dot, pch = stn_pch, col = stn_col, cex = stn_cex)
@@ -53,7 +53,7 @@ prep_outro_allsites_fun <- function(allsites_ind="2_process/out/gage_sites_geom.
                                     gage_col_config, outro_placement, legend_text_cfg, opacity=1) {
 
   # gage_sites_geom.rds.ind is already projected for us
-  allsites <- readRDS(sc_retrieve(allsites_ind))
+  allsites <- readRDS(sc_retrieve(allsites_ind, remake_file = getOption("scipiper.remake_file")))
 
   if(opacity != 1) stop("opacity other than 1 not yet supported")
 
@@ -108,7 +108,7 @@ prep_outro_readmore_fun <- function(outro_placement, legend_text_cfg, opacity=1)
     # plot text and legend
     text(x=x_title, y=y_title, labels="STAY SAFE DURING FLOODS", adj=c(0, 1),
          cex=2.2, col=legend_text_cfg$col, family = 'Oswald')
-    text_chars <- "Learn more about USGS response to Florence at www.usgs.gov/florence"
+    text_chars <- "Learn more about the USGS response at www.usgs.gov/hurricanes"
     text(x=x_text, y=y_text, labels=text_chars, adj=c(0, 1),
          cex=1.5, col=legend_text_cfg$col, family = 'abel')
   }
